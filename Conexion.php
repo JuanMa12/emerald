@@ -1,12 +1,40 @@
 <?php
 session_start();
+
+$mysqli = new mysqli("localhost", "root", "", "emerald");
+
+/* comprobar la conexión */
+if ($mysqli->connect_errno) {
+    printf("Conexión fallida: %s\n", $mysqli->connect_error);
+    exit();
+}
+
+/* comprobar si el servidor sigue vivo */
+if ($mysqli->ping()) {
+    printf ("¡La conexión está bien!\n");
+} else {
+    printf ("Error: %s\n", $mysqli->error);
+}
+
 class Connect {
     public static function con()
     {
-        $con = mysql_connect("localhost","root","");
-        mysql_query("SET NAMES 'utf8'");
-        mysql_select_db("emerald");
-        return $con;
+        $mysqli = new mysqli("localhost", "root", "", "emerald");
+
+        /* comprobar la conexión */
+        if ($mysqli->connect_errno) {
+            printf("Conexión fallida: %s\n", $mysqli->connect_error);
+            exit();
+        }
+
+        /* comprobar si el servidor sigue vivo */
+        if ($mysqli->ping()) {
+            printf ("¡La conexión está bien!\n");
+        } else {
+            printf ("Error: %s\n", $mysqli->error);
+        }
+
+        return $mysqli;
     }
 }
 ?>
